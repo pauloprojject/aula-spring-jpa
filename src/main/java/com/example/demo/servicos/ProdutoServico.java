@@ -36,5 +36,21 @@ public class ProdutoServico {
 		produtoRepositorioJPA.deleteById(id);
 	}
 	
+	public Optional<Produto> findByIdPrecoJpql(Integer id, Double preco) {
+		return produtoRepositorioJPA.findProdutoParam(id, preco);
+		
+	}
 
+	public Optional<Produto> findByIdPrecoSql(Integer id, Double preco) {
+		return produtoRepositorioJPA.findProdutoParamSql(id, preco);
+		
+	}
+
+	public Optional<Produto> findByNomeJpql(String nome){
+		return produtoRepositorioJPA.findByNomeJpql(nome);
+	}
+
+	public Optional<Produto> findByNomeSql(String nome){
+		return produtoRepositorioJPA.findByNomeSql(nome);
+	}
 }

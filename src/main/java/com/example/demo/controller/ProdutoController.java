@@ -63,4 +63,35 @@ public class ProdutoController {
 		
 	}
 
+	@GetMapping("/produto-jpa-id-preco-jpql/{id}/{preco}")
+	public ResponseEntity<Optional<Produto>> findByIdPrecoJpql(@PathVariable Integer id, @PathVariable Double preco){
+		Optional<Produto> prod = servico.findByIdPrecoJpql(id, preco);
+		return !prod.isPresent() ? new ResponseEntity<>(prod, HttpStatus.OK) 
+							 : new ResponseEntity<>(prod, HttpStatus.BAD_REQUEST);
+		
+	}
+
+	@GetMapping("/produto-jpa-id-preco-sql/{id}/{preco}")
+	public ResponseEntity<Optional<Produto>> findByIdPrecoSql(@PathVariable Integer id, @PathVariable Double preco){
+		Optional<Produto> prod = servico.findByIdPrecoJpql(id, preco);
+		return !prod.isPresent() ? new ResponseEntity<>(prod, HttpStatus.OK) 
+							 : new ResponseEntity<>(prod, HttpStatus.BAD_REQUEST);
+		
+	}
+
+	@GetMapping("/produto-jpa-nome-jpql/{nome}")
+	public ResponseEntity<Optional<Produto>> findByNomeJpql(@PathVariable String nome){
+		Optional<Produto> prod = servico.findByNomeJpql(nome);
+		return !prod.isPresent() ? new ResponseEntity<>(prod, HttpStatus.OK) 
+							 : new ResponseEntity<>(prod, HttpStatus.BAD_REQUEST);
+		
+	}
+
+	@GetMapping("/produto-jpa-nome-sql/{nome}")
+	public ResponseEntity<Optional<Produto>> findByNomeSql(@PathVariable String nome){
+		Optional<Produto> prod = servico.findByNomeJpql(nome);
+		return !prod.isPresent() ? new ResponseEntity<>(prod, HttpStatus.OK) 
+							 : new ResponseEntity<>(prod, HttpStatus.BAD_REQUEST);
+		
+	}
 }
