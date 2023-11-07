@@ -2,6 +2,8 @@ package com.example.demo.entidades;
 
 import java.util.Objects;
 
+import com.example.demo.DTOs.ProdutoDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,12 @@ public class Produto {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+
+	public Produto(ProdutoDTO produtoDTO){
+		this.id = produtoDTO.getId();
+		this.nome = produtoDTO.getNome();
+		this.preco = produtoDTO.getPreco();
 	}
 
 	public Integer getId() {

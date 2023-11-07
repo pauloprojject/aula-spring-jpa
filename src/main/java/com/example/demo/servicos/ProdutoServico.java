@@ -2,10 +2,12 @@ package com.example.demo.servicos;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.DTOs.ProdutoDTO;
 import com.example.demo.entidades.Produto;
 import com.example.demo.repositorio.ProdutoRepositorioJPA;
 
@@ -15,42 +17,40 @@ public class ProdutoServico {
 	@Autowired
 	private ProdutoRepositorioJPA produtoRepositorioJPA;
 	
-	public Produto insert(Produto produto) {
-		/*List<Produto> teste = produtoRepositorioJPA.findAll();*/
-		return produtoRepositorioJPA.save(produto);
+	public ProdutoDTO insert(ProdutoDTO produto) {
+		Produto prod = new Produto(produto);
+		return new ProdutoDTO(produtoRepositorioJPA.save(prod));
+	}
+	
+	public List<ProdutoDTO> findAll() {
+		List<Produto> list = produtoRepositorioJPA.findAll();
+		return list.stream().map(x -> new ProdutoDTO(x)).collect(Collectors.toList());
 		
 	}
 	
-	
-	public List<Produto> findAll() {
-		return produtoRepositorioJPA.findAll();
-		
-	}
-	
-	public Optional<Produto> findById(Integer id) {
-		return produtoRepositorioJPA.findById(id);
-		
+	public Optional<ProdutoDTO> findById(Integer id) {
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findById(id).get()));
 	}
 	
 	public void delete(Integer id) {
 		produtoRepositorioJPA.deleteById(id);
 	}
 	
-	public Optional<Produto> findByIdPrecoJpql(Integer id, Double preco) {
-		return produtoRepositorioJPA.findProdutoParam(id, preco);
+	public Optional<ProdutoDTO> findByIdPrecoJpql(Integer id, Double preco) {
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findProdutoParam(id, preco).get()));
 		
 	}
 
-	public Optional<Produto> findByIdPrecoSql(Integer id, Double preco) {
-		return produtoRepositorioJPA.findProdutoParamSql(id, preco);
+	public Optional<ProdutoDTO> findByIdPrecoSql(Integer id, Double preco) {
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findProdutoParamSql(id, preco).get()));
 		
 	}
 
-	public Optional<Produto> findByNomeJpql(String nome){
-		return produtoRepositorioJPA.findByNomeJpql(nome);
+	public Optional<ProdutoDTO> findByNomeJpql(String nome){
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findByNomeJpql(nome).get()));
 	}
 
-	public Optional<Produto> findByNomeSql(String nome){
-		return produtoRepositorioJPA.findByNomeSql(nome);
+	public Optional<ProdutoDTO> findByNomeSql(String nome){
+		return Optional.of(new ProdutoDTO(produtoRepositorioJPA.findByNomeSql(nome).get()));
 	}
 }
